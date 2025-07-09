@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Documentos - Empresa de Arquitetura</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Documentos</h1>
+        <!-- Menu -->
+        <div class="menu">
+            <button onclick="showSection('gerar')">Gerar Documentos</button>
+            <button onclick="showSection('documentos')">Documentos por Cliente</button>
+            <button onclick="showSection('clientes')">Gerenciar Clientes</button>
+        </div>
+
+        <!-- Seção de Geração de Documentos -->
+        <div id="gerar-section" style="display: block;">
+            <form id="document-form">
+                <label>Tipo de Documento</label>
+                <select id="document-type" onchange="showForm()">
+                    <option value="">Selecione...</option>
+                    <option value="ordem-compra">Ordem de Compra</option>
+                    <option value="ordem-servico">Ordem de Serviço</option>
+                    <option value="solicitacao-orcamento">Solicitação de Orçamento</option>
+                </select>
+
+                <!-- Formulário para Ordem de Compra e Ordem de Serviço -->
+                <div id="ordem-form" style="display: none;">
+                    <h2 id="ordem-title">Ordem de Compra</h2>
+                    <label>Cliente</label>
+                    <select id="cliente-ordem">
+                        <option value="">Selecione um cliente</option>
+                        <!-- Opções preenchidas via JavaScript -->
+                    </select>
+                    <label>Nome do Arquivo (opcional)</label>
+                    <input type="text" id="nome-arquivo" placeholder="Ex: Ordem_Compra_001">
+                    <label>Número do Pedido</label>
+                    <input type="text" id="numero-pedido" placeholder="Ex: 00123">
+                    <label>Data</label>
+                    <input type="date" id="data">
+                    <label>Obra</label>
+                    <textarea id="obra" placeholder="Descrição da Obra" rows="3"></textarea>
+                    <label>Referência</label>
+                    <input type="text" id="ref" placeholder="Referência">
+
+                    <div class="items-section">
+                        <h3>Itens</h3>
+                        <div id="items-container">
+                            <div class="item-row">
+                                <input type="text" class="item-num" placeholder="Item (Ex: 1)">
+                                <input type="text" class="item-desc" placeholder="Descrição">
+                                <input type="number" min="0" class="item-qty" placeholder="Quantidade">
+                                <input type="number" step="0.01" min="0" class="item-unit-price" placeholder="Valor Unitário">
+                            </div>
+                        </div>
+                        <button type="button" onclick="addItemRow('ordem')">Adicionar Item</button>
+                    </div>
+
+                    <label>Informações do Fornecedor</label>
+                    <select id="fornecedor-select-ordem" onchange="updateFornecedorInfo('ordem')">
+                        <option value="">Selecione um fornecedor</option>
+                        <!-- Opções serão preenchidas via JavaScript -->
+                    </select>
+                    <textarea id="fornecedor-manual-ordem" placeholder="Digite os dados do fornecedor manualmente" rows="4" style="display: none; margin-top: 10px;"></textarea>
+                    <label>Detalhes Adicionais do Fornecedor (opcional)</label>
+                    <textarea id="fornecedor-detalhes-ordem" placeholder="Ex: Endereço, contato, observações" rows="3" style="margin-top: 10px;"></textarea>
+
+                    <div style="margin-top: 20px;">
+                        <button type="button" onclick="previewDocument('ordem')">Pré-visualizar Documento</button>
+                        <button type="button" onclick="generateAndSaveHTML('ordem')">Gerar e Salvar HTML</button>
+                    </div>
+                </div>
+
+                <!-- Formulário para Solicitação de Orçamento -->
+                <div id="solicitacao-orcamento-form" style="display: none;">
+                    <h2>Solicitação de Orçamento</h2>
+                    <label>Cliente</label>
+                    <select id="cliente-orcamento">
+                        <option value="">Selecione um cliente</option>
+                        <!-- Opções preenchidas via JavaScript -->
+                    </select>
+                    <label>Nome do Arquivo (opcional)</label>
+                    <input type="text" id="nome-arquivo-orcamento" placeholder="Ex: Solicitacao_Orcamento_001">
+                    <label>Data</label>
+                    <input type="date" id="data-orcamento">
+
+                    <label>Informações do Fornecedor</label>
+                    <select id="fornecedor-select-orcamento" onchange="updateFornecedorInfo('orcamento')">
+                        <option value="">Selecione um fornecedor</option>
+                        <!-- Opções serão preenchidas via JavaScript -->
+                    </select>
+                    <textarea id="fornecedor-manual-orcamento" placeholder="Digite o nome do fornecedor manualmente" rows="4" style="display: none; margin-top: 10px;"></textarea>
+
+                    <div class="items-section">
+                        <h3>Itens</h3>
+                        <div id="items-container-orcamento">
+                            <div class="item-row">
+                                <input type="text" class="item-num" placeholder="Item (Ex: 1)">
+                                <input type="text" class="item-desc" placeholder="Descrição">
+                                <input type="number" min="0" class="item-qty" placeholder="Quantidade">
+                                <input type="text" class="item-link" placeholder="Link (opcional)">
+                                <input type="text" class="item-medida" placeholder="Medida (opcional)">
+                                <input type="text" class="item-imagem" placeholder="URL da Imagem (opcional)">
+                            </div>
+                        </div>
+                        <button type="button" onclick="addItemRow('orcamento')">Adicionar Item</button>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button type="button" onclick="previewDocument('orcamento')">Pré-visualizar Documento</button>
+                        <button type="button" onclick="generateAndSaveHTML('orcamento')">Gerar e Salvar HTML</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Seção de Documentos por Cliente -->
+        <div id="documentos-section" style="display: none;">
+            <h2>Documentos por Cliente</h2>
+            <label>Selecione o Cliente</label>
+            <select id="cliente-documentos" onchange="listDocuments()">
+                <option value="">Selecione um cliente</option>
+                <!-- Opções preenchidas via JavaScript -->
+            </select>
+            <div id="documentos-lista" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- Seção de Gerenciamento de Clientes -->
+        <div id="clientes-section" style="display: none;">
+            <h2>Gerenciar Clientes</h2>
+            <h3>Adicionar Novo Cliente</h3>
+            <form id="cliente-form">
+                <label>Nome</label>
+                <input type="text" id="cliente-nome" placeholder="Nome do Cliente">
+                <label>Documento</label>
+                <input type="text" id="cliente-documento" placeholder="CPF ou CNPJ">
+                <label>Número do Documento</label>
+                <input type="text" id="cliente-numero-documento" placeholder="Ex: 123.456.789-00">
+                <label>PIX</label>
+                <input type="text" id="cliente-pix" placeholder="Chave PIX">
+                <label>Chave PIX</label>
+                <input type="text" id="cliente-chave-pix" placeholder="Tipo de Chave PIX">
+                <label>Número de Telefone</label>
+                <input type="text" id="cliente-telefone" placeholder="Ex: (47) 99999-9999">
+                <label>Endereço</label>
+                <textarea id="cliente-endereco" placeholder="Endereço completo" rows="3"></textarea>
+                <button type="button" onclick="addCliente()">Adicionar Cliente</button>
+            </form>
+            <h3>Lista de Clientes</h3>
+            <div id="clientes-lista"></div>
+        </div>
+
+        <!-- Modal para pré-visualização -->
+        <div id="preview-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">×</span>
+                <h2 id="preview-title">Pré-visualização</h2>
+                <div id="preview-content" style="overflow-y: auto; max-height: 70vh;"></div>
+                <button type="button" onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
