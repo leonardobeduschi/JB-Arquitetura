@@ -9,15 +9,8 @@
 <body>
     <div class="container">
         <h1>Gerador de Documentos</h1>
-        <!-- Menu -->
-        <div class="menu">
-            <button onclick="showSection('gerar')">Gerar Documentos</button>
-            <button onclick="showSection('documentos')">Documentos por Cliente</button>
-            <button onclick="showSection('clientes')">Gerenciar Clientes</button>
-        </div>
-
         <!-- Seção de Geração de Documentos -->
-        <div id="gerar-section" style="display: block;">
+        <div id="gerar-section">
             <form id="document-form">
                 <label>Tipo de Documento</label>
                 <select id="document-type" onchange="showForm()">
@@ -31,10 +24,10 @@
                 <div id="ordem-form" style="display: none;">
                     <h2 id="ordem-title">Ordem de Compra</h2>
                     <label>Cliente</label>
-                    <select id="cliente-ordem">
+                    <select id="cliente-ordem" onchange="updateClienteInfo('ordem')">
                         <option value="">Selecione um cliente</option>
-                        <!-- Opções preenchidas via JavaScript -->
                     </select>
+                    <input type="text" id="cliente-manual-ordem" placeholder="Digite o nome do cliente" style="display: none; margin-top: 10px;">
                     <label>Nome do Arquivo (opcional)</label>
                     <input type="text" id="nome-arquivo" placeholder="Ex: Ordem_Compra_001">
                     <label>Número do Pedido</label>
@@ -62,7 +55,6 @@
                     <label>Informações do Fornecedor</label>
                     <select id="fornecedor-select-ordem" onchange="updateFornecedorInfo('ordem')">
                         <option value="">Selecione um fornecedor</option>
-                        <!-- Opções serão preenchidas via JavaScript -->
                     </select>
                     <textarea id="fornecedor-manual-ordem" placeholder="Digite os dados do fornecedor manualmente" rows="4" style="display: none; margin-top: 10px;"></textarea>
                     <label>Detalhes Adicionais do Fornecedor (opcional)</label>
@@ -77,11 +69,11 @@
                 <!-- Formulário para Solicitação de Orçamento -->
                 <div id="solicitacao-orcamento-form" style="display: none;">
                     <h2>Solicitação de Orçamento</h2>
-                    <label>Cliente</label>
-                    <select id="cliente-orcamento">
-                        <option value="">Selecione um cliente</option>
-                        <!-- Opções preenchidas via JavaScript -->
+                    <label>Cliente (opcional)</label>
+                    <select id="cliente-orcamento" onchange="updateClienteInfo('orcamento')">
+                        <option value="">Selecione um cliente (opcional)</option>
                     </select>
+                    <input type="text" id="cliente-manual-orcamento" placeholder="Digite o nome do cliente" style="display: none; margin-top: 10px;">
                     <label>Nome do Arquivo (opcional)</label>
                     <input type="text" id="nome-arquivo-orcamento" placeholder="Ex: Solicitacao_Orcamento_001">
                     <label>Data</label>
@@ -90,7 +82,6 @@
                     <label>Informações do Fornecedor</label>
                     <select id="fornecedor-select-orcamento" onchange="updateFornecedorInfo('orcamento')">
                         <option value="">Selecione um fornecedor</option>
-                        <!-- Opções serão preenchidas via JavaScript -->
                     </select>
                     <textarea id="fornecedor-manual-orcamento" placeholder="Digite o nome do fornecedor manualmente" rows="4" style="display: none; margin-top: 10px;"></textarea>
 
@@ -115,42 +106,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-
-        <!-- Seção de Documentos por Cliente -->
-        <div id="documentos-section" style="display: none;">
-            <h2>Documentos por Cliente</h2>
-            <label>Selecione o Cliente</label>
-            <select id="cliente-documentos" onchange="listDocuments()">
-                <option value="">Selecione um cliente</option>
-                <!-- Opções preenchidas via JavaScript -->
-            </select>
-            <div id="documentos-lista" style="margin-top: 20px;"></div>
-        </div>
-
-        <!-- Seção de Gerenciamento de Clientes -->
-        <div id="clientes-section" style="display: none;">
-            <h2>Gerenciar Clientes</h2>
-            <h3>Adicionar Novo Cliente</h3>
-            <form id="cliente-form">
-                <label>Nome</label>
-                <input type="text" id="cliente-nome" placeholder="Nome do Cliente">
-                <label>Documento</label>
-                <input type="text" id="cliente-documento" placeholder="CPF ou CNPJ">
-                <label>Número do Documento</label>
-                <input type="text" id="cliente-numero-documento" placeholder="Ex: 123.456.789-00">
-                <label>PIX</label>
-                <input type="text" id="cliente-pix" placeholder="Chave PIX">
-                <label>Chave PIX</label>
-                <input type="text" id="cliente-chave-pix" placeholder="Tipo de Chave PIX">
-                <label>Número de Telefone</label>
-                <input type="text" id="cliente-telefone" placeholder="Ex: (47) 99999-9999">
-                <label>Endereço</label>
-                <textarea id="cliente-endereco" placeholder="Endereço completo" rows="3"></textarea>
-                <button type="button" onclick="addCliente()">Adicionar Cliente</button>
-            </form>
-            <h3>Lista de Clientes</h3>
-            <div id="clientes-lista"></div>
         </div>
 
         <!-- Modal para pré-visualização -->
