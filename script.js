@@ -21,25 +21,26 @@ const clientes = [
 ];
 
 const fornecedores = [
-    { id: 1, empresa: 'BC Glass', tipoPagamento: '', pix: '' },
-    { id: 2, empresa: 'VIDRAÇARIA CATARINENSE', tipoPagamento: 'celular', pix: '47988165137' },
-    { id: 3, empresa: 'Hidrovolt', tipoPagamento: '', pix: '' },
-    { id: 4, empresa: 'Spagnolo Serviços Elétricos', tipoPagamento: 'CNPJ', pix: '36.311.619/0001-64' },
-    { id: 5, empresa: 'AS Construções', tipoPagamento: 'CNPJ', pix: '36.425.926/0001-76' },
-    { id: 6, empresa: 'Gyakom', tipoPagamento: 'CNPJ', pix: '32.625.136/0001-83' },
-    { id: 7, empresa: 'Norte Sul Pinturas', tipoPagamento: 'Celular', pix: '(47) 99655-4445' },
-    { id: 8, empresa: 'MK Cabeceiras', tipoPagamento: 'Celular', pix: '(47) 99919-8226' },
-    { id: 9, empresa: 'Mobiliarium', tipoPagamento: 'CPF', pix: '836.127.859-15' },
-    { id: 10, empresa: 'Essence decor', tipoPagamento: 'CNPJ', pix: '23.296.579/0001-87' },
-    { id: 11, empresa: 'Construcolor', tipoPagamento: '', pix: '' },
-    { id: 12, empresa: 'Materiais Silva', tipoPagamento: 'CNPJ', pix: '27.023.857/0001-83' },
-    { id: 13, empresa: 'RBM Impermeabilização LTDA', tipoPagamento: 'CNPJ', pix: '40.700.376/0001-16' },
-    { id: 14, empresa: 'Maninho Terra e Planagem', tipoPagamento: 'CNPJ', pix: '49.799.492/0001-16' },
-    { id: 15, empresa: 'Rova Iluminação LTDA', tipoPagamento: 'CNPJ', pix: '33.096.672/0001-00' },
-    { id: 16, empresa: 'MR Portas', tipoPagamento: 'Email', pix: 'comprasmrportas@gmail.com' },
-    { id: 17, empresa: 'Sidnei Arnaldo Rosa', tipoPagamento: '', pix: '' },
-    { id: 18, empresa: 'Casa dos Colchões', tipoPagamento: 'CNPJ', pix: '04.268.542/0001-09' },
-    { id: 19, empresa: 'Via Decore', tipoPagamento: '', pix: '' }
+    { id: 1, empresa: 'Jeanete Beduschi Arquitetura', tipoPagamento: 'celular', pix: '47 999837654' },
+    { id: 2, empresa: 'BC Glass', tipoPagamento: '', pix: '' },
+    { id: 3, empresa: 'VIDRAÇARIA CATARINENSE', tipoPagamento: 'celular', pix: '47988165137' },
+    { id: 4, empresa: 'Hidrovolt', tipoPagamento: '', pix: '' },
+    { id: 5, empresa: 'Spagnolo Serviços Elétricos', tipoPagamento: 'CNPJ', pix: '36.311.619/0001-64' },
+    { id: 6, empresa: 'AS Construções', tipoPagamento: 'CNPJ', pix: '36.425.926/0001-76' },
+    { id: 7, empresa: 'Gyakom', tipoPagamento: 'CNPJ', pix: '32.625.136/0001-83' },
+    { id: 8, empresa: 'Norte Sul Pinturas', tipoPagamento: 'Celular', pix: '(47) 99655-4445' },
+    { id: 9, empresa: 'MK Cabeceiras', tipoPagamento: 'Celular', pix: '(47) 99919-8226' },
+    { id: 10, empresa: 'Mobiliarium', tipoPagamento: 'CPF', pix: '836.127.859-15' },
+    { id: 11, empresa: 'Essence decor', tipoPagamento: 'CNPJ', pix: '23.296.579/0001-87' },
+    { id: 12, empresa: 'Construcolor', tipoPagamento: '', pix: '' },
+    { id: 13, empresa: 'Materiais Silva', tipoPagamento: 'CNPJ', pix: '27.023.857/0001-83' },
+    { id: 14, empresa: 'RBM Impermeabilização LTDA', tipoPagamento: 'CNPJ', pix: '40.700.376/0001-16' },
+    { id: 15, empresa: 'Maninho Terra e Planagem', tipoPagamento: 'CNPJ', pix: '49.799.492/0001-16' },
+    { id: 16, empresa: 'Rova Iluminação LTDA', tipoPagamento: 'CNPJ', pix: '33.096.672/0001-00' },
+    { id: 17, empresa: 'MR Portas', tipoPagamento: 'Email', pix: 'comprasmrportas@gmail.com' },
+    { id: 18, empresa: 'Sidnei Arnaldo Rosa', tipoPagamento: '', pix: '' },
+    { id: 19, empresa: 'Casa dos Colchões', tipoPagamento: 'CNPJ', pix: '04.268.542/0001-09' },
+    { id: 20, empresa: 'Via Decore', tipoPagamento: '', pix: '' }
 ];
 
 // Inicializa os dropdowns ao carregar a página
