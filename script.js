@@ -21,26 +21,31 @@ const clientes = [
 ];
 
 const fornecedores = [
-    { id: 1, empresa: 'Jeanete Beduschi Arquitetura', tipoPagamento: 'celular', pix: '47 999837654' },
-    { id: 2, empresa: 'BC Glass', tipoPagamento: '', pix: '' },
-    { id: 3, empresa: 'VIDRAÇARIA CATARINENSE', tipoPagamento: 'celular', pix: '47988165137' },
-    { id: 4, empresa: 'Hidrovolt', tipoPagamento: '', pix: '' },
-    { id: 5, empresa: 'Spagnolo Serviços Elétricos', tipoPagamento: 'CNPJ', pix: '36.311.619/0001-64' },
-    { id: 6, empresa: 'AS Construções', tipoPagamento: 'CNPJ', pix: '36.425.926/0001-76' },
-    { id: 7, empresa: 'Gyakom', tipoPagamento: 'CNPJ', pix: '32.625.136/0001-83' },
-    { id: 8, empresa: 'Norte Sul Pinturas', tipoPagamento: 'Celular', pix: '(47) 99655-4445' },
-    { id: 9, empresa: 'MK Cabeceiras', tipoPagamento: 'Celular', pix: '(47) 99919-8226' },
-    { id: 10, empresa: 'Mobiliarium', tipoPagamento: 'CPF', pix: '836.127.859-15' },
-    { id: 11, empresa: 'Essence decor', tipoPagamento: 'CNPJ', pix: '23.296.579/0001-87' },
-    { id: 12, empresa: 'Construcolor', tipoPagamento: '', pix: '' },
-    { id: 13, empresa: 'Materiais Silva', tipoPagamento: 'CNPJ', pix: '27.023.857/0001-83' },
-    { id: 14, empresa: 'RBM Impermeabilização LTDA', tipoPagamento: 'CNPJ', pix: '40.700.376/0001-16' },
-    { id: 15, empresa: 'Maninho Terra e Planagem', tipoPagamento: 'CNPJ', pix: '49.799.492/0001-16' },
-    { id: 16, empresa: 'Rova Iluminação LTDA', tipoPagamento: 'CNPJ', pix: '33.096.672/0001-00' },
-    { id: 17, empresa: 'MR Portas', tipoPagamento: 'Email', pix: 'comprasmrportas@gmail.com' },
-    { id: 18, empresa: 'Sidnei Arnaldo Rosa', tipoPagamento: '', pix: '' },
-    { id: 19, empresa: 'Casa dos Colchões', tipoPagamento: 'CNPJ', pix: '04.268.542/0001-09' },
-    { id: 20, empresa: 'Via Decore', tipoPagamento: '', pix: '' }
+    { id: 1, empresa: 'Jeanete Beduschi Arquitetura', tipoPagamento: 'Celular', pix: '47 999837654', nomePix: 'Jeanete Aparecida Beduschi Iunes' },
+    { id: 2, empresa: 'BC Glass', tipoPagamento: 'CPF', pix: '020.382.689-24', nomePix: 'Sanchaine Bordin de Mello' },
+    { id: 3, empresa: 'VIDRAÇARIA CATARINENSE', tipoPagamento: 'Celular', pix: '47 988165137', nomePix: 'Vidraçaria e Esquadria de Aluminio Catarinense LTDA' },
+    { id: 4, empresa: 'Hidrovolt', tipoPagamento: 'CNPJ', pix: '27.267.942/0001-97', nomePix: 'Hidrowolt' },
+    { id: 5, empresa: 'Spagnolo Serviços Elétricos', tipoPagamento: 'CNPJ', pix: '36.311.619/0001-64', nomePix: 'Spagnolo Serviços Elétricos' },
+    { id: 6, empresa: 'AS Construções', tipoPagamento: 'CNPJ', pix: '36.425.926/0001-76', nomePix: 'Adalmir da Silva' },
+    { id: 7, empresa: 'Gyakom', tipoPagamento: 'CNPJ', pix: '32.625.136/0001-83', nomePix: 'Giakom Climatização e Aquecimento de Água' },
+    { id: 8, empresa: 'Norte Sul Pinturas', tipoPagamento: 'Celular', pix: '(47) 99655-4445', nomePix: 'Norte Sul Pinturas' },
+    { id: 9, empresa: 'MK Cabeceiras', tipoPagamento: 'CNPJ', pix: '47 999198226', nomePix: '' },
+    { id: 10, empresa: 'Mobiliarium', tipoPagamento: 'CPF', pix: '836.127.859-15', nomePix: 'Fábio Gradowski Bueno' },
+    { id: 11, empresa: 'Essence decor', tipoPagamento: 'CNPJ', pix: '23.296.579/0001-87', nomePix: 'Essence decor' },
+    { id: 12, empresa: 'Construcolor', tipoPagamento: 'Email', pix: 'pix.006@construcolor.com.br', nomePix: 'Construcolor Comercio de Tintas LTDA' },
+    { id: 13, empresa: 'Materiais Silva', tipoPagamento: 'CNPJ', pix: '27.023.857/0001-83', nomePix: 'Silva Materiais de Construção' },
+    { id: 14, empresa: 'RBM Impermeabilização LTDA', tipoPagamento: 'CNPJ', pix: '40.700.376/0001-23', nomePix: 'RBM Impermeabilização LTDA' },
+    { id: 15, empresa: 'Maninho Terra e Planagem', tipoPagamento: 'CNPJ', pix: '49.799.492/0001-16', nomePix: 'Maninho Terra e Planagem' },
+    { id: 16, empresa: 'Rova Iluminação LTDA', tipoPagamento: 'CNPJ', pix: '33.096.672/0001-00', nomePix: 'Rova Iluminação' },
+    { id: 17, empresa: 'MR Portas', tipoPagamento: 'Email', pix: 'comprasmrportas@gmail.com', nomePix: 'Mr Portas' },
+    { id: 18, empresa: 'SC Gesso', tipoPagamento: 'Celular', pix: '47 991189298', nomePix: 'Sidnei Arnaldo Rosa' },
+    { id: 19, empresa: 'Casa dos Colchões', tipoPagamento: 'CNPJ', pix: '04.268.542/0001-09', nomePix: 'Casa dos Colchões' },
+    { id: 20, empresa: 'Via Decore', tipoPagamento: 'CNPJ', pix: '13.904.631/0001-87', nomePix: 'Via Decore LTDA' },
+    { id: 21, empresa: 'Marmoraria Vitoria', tipoPagamento: 'CNPJ', pix: '11.158.559/0001-60', nomePix: 'MARCELO DA SILVA MARMORARIA IMPORT. E EXPORT. LTDA ME' },
+    { id: 22, empresa: 'I cut laser', tipoPagamento: 'CNPJ', pix: '32.493.346/0001-65', nomePix: 'Marilene Coelho' },
+    { id: 23, empresa: 'Casas da Água', tipoPagamento: 'CNPJ', pix: '13.501.187/0001-59', nomePix: 'Casas da Água Materiais para Construção LTDA' },
+    { id: 24, empresa: "Viecelli's Reformas", tipoPagamento: 'CNPJ', pix: '33.385.588/0001-06', nomePix: 'REVESTCOR COMÉRCIO LTDA' },
+    { id: 25, empresa: 'Volare Acabamentos', tipoPagamento: '', pix: '', nomePix: '' }
 ];
 
 // Inicializa os dropdowns ao carregar a página
@@ -115,7 +120,7 @@ function updateFornecedorInfo(prefix) {
         if (fornecedor) {
             fornecedorManual.value = prefix === 'orcamento' ? 
                 fornecedor.empresa : 
-                `${fornecedor.empresa}${fornecedor.pix ? `\nPIX: ${fornecedor.pix} (${fornecedor.tipoPagamento})` : ''}`;
+                `${fornecedor.empresa}${fornecedor.pix ? `\nPIX: ${fornecedor.pix} (${fornecedor.tipoPagamento})` : ''}${fornecedor.nomePix ? `\nNome PIX: ${fornecedor.nomePix}` : ''}`;
         } else {
             fornecedorManual.value = '';
         }
