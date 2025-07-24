@@ -18,6 +18,7 @@
                     <option value="ordem-compra">Ordem de Compra</option>
                     <option value="ordem-servico">Ordem de Serviço</option>
                     <option value="solicitacao-orcamento">Solicitação de Orçamento</option>
+                    <option value="diario-obras">Diário de Obras</option>
                 </select>
 
                 <!-- Formulário para Ordem de Compra e Ordem de Serviço -->
@@ -103,6 +104,74 @@
                     <div style="margin-top: 20px;">
                         <button type="button" onclick="previewDocument('orcamento')">Pré-visualizar Documento</button>
                         <button type="button" onclick="generateAndSaveHTML('orcamento')">Gerar e Salvar HTML</button>
+                    </div>
+                </div>
+
+                <!-- Formulário para Diário de Obras -->
+                <div id="diario-obras-form" style="display: none;">
+                    <h2>Diário de Obras</h2>
+                    <label>Nome do Arquivo (opcional)</label>
+                    <input type="text" id="nome-arquivo-diario" placeholder="Ex: Diario_Obras_001">
+                    <label>Data</label>
+                    <input type="date" id="data-diario">
+                    <label>Página</label>
+                    <input type="number" id="pagina-diario" min="1" placeholder="Ex: 1">
+                    <label>Obra</label>
+                    <textarea id="obra-diario" placeholder="Descrição da Obra" rows="3"></textarea>
+                    <label>Referência</label>
+                    <input type="text" id="ref-diario" placeholder="Referência">
+                    <label>Prazo Decorrido</label>
+                    <input type="text" id="prazo-decorrido" placeholder="Ex: 30 dias">
+                    <label>Prazo Restante</label>
+                    <input type="text" id="prazo-restante" placeholder="Ex: 60 dias">
+                    <label>Prazo da Obra</label>
+                    <input type="text" id="prazo-obra" placeholder="Ex: 90 dias">
+                    <label>Horário de Trabalho</label>
+                    <input type="text" id="horario-trabalho" placeholder="Ex: 08:00 - 17:00">
+                    <label>Tempo</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="tempo" value="Bom"> Bom</label>
+                        <label><input type="checkbox" name="tempo" value="Chuva Fraca"> Chuva Fraca</label>
+                        <label><input type="checkbox" name="tempo" value="Chuva Forte"> Chuva Forte</label>
+                    </div>
+                    <label>Turno</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="turno" value="Manhã"> Manhã</label>
+                        <label><input type="checkbox" name="turno" value="Tarde"> Tarde</label>
+                    </div>
+
+                    <div class="items-section">
+                        <h3>Pessoal</h3>
+                        <div id="pessoal-container">
+                            <div class="item-row">
+                                <input type="text" class="item-desc" placeholder="Descrição">
+                                <input type="number" min="0" class="item-qty" placeholder="Quantidade">
+                                <input type="text" class="item-nomes" placeholder="Nomes">
+                                <button type="button" class="remove-item" onclick="removeItemRow(this)">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addItemRow('diario')">Adicionar Item</button>
+                    </div>
+
+                    <div class="items-section">
+                        <h3>Serviços Executados</h3>
+                        <label>Obra</label>
+                        <textarea id="servicos-obra" placeholder="Descrição dos serviços executados (mínimo 50 caracteres)" rows="4" oninput="validateMinLength(this, 50)"></textarea>
+                        <label>Administrativo</label>
+                        <textarea id="servicos-administrativo" placeholder="Detalhes administrativos" rows="4"></textarea>
+                    </div>
+
+                    <div class="items-section">
+                        <h3>Observações</h3>
+                        <label>Anotações</label>
+                        <textarea id="observacoes-anotacoes" placeholder="Anotações gerais" rows="4"></textarea>
+                        <label>Solicitação de Produtos</label>
+                        <textarea id="observacoes-produtos" placeholder="Produtos necessários para a obra" rows="4"></textarea>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button type="button" onclick="previewDocument('diario')">Pré-visualizar Documento</button>
+                        <button type="button" onclick="generateAndSaveHTML('diario')">Gerar e Salvar HTML</button>
                     </div>
                 </div>
             </form>
