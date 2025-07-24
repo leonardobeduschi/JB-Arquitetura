@@ -43,6 +43,30 @@ input, textarea, select {
     font-family: 'Century Gothic', Arial, sans-serif;
     font-size: 14px;
 }
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 10px 0;
+}
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    color: #555;
+    cursor: pointer;
+}
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    accent-color: #d4a373;
+}
+.checkbox-group label:hover {
+    color: #b88a5a;
+}
+textarea[title]:not([title=""]) {
+    border: 2px solid #e74c3c !important;
+}
 .items-section {
     margin: 20px 0;
     padding: 15px;
@@ -53,14 +77,29 @@ input, textarea, select {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+    align-items: center;
+    min-height: 40px; /* Ensure row has enough height */
+    width: 100%; /* Ensure row spans container */
 }
 .item-row input {
     flex: 1;
+    min-width: 0;
+    visibility: visible; /* Ensure inputs are not hidden */
+    box-sizing: border-box; /* Prevent overflow */
+}
+
+.item-row input.item-nomes {
+    flex: 2;
+    min-width: 150px; /* Ensure Nomes has sufficient width */
 }
 .item-row button {
     background-color: #e74c3c;
-    padding: 8px;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
     flex: 0 0 auto;
+    border-radius: 5px;
+    cursor: pointer;
 }
 .item-row button:hover {
     background-color: #c0392b;
@@ -124,19 +163,24 @@ button:hover {
 #preview-content .header {
     text-align: center;
     border-bottom: 2px solid #d4a373;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 #preview-content .header img {
-    max-width: 150px;
+    max-width: 120px;
     height: auto;
 }
 #preview-content .header h1 {
-    font-size: 24px;
+    font-size: 22px;
     color: #333;
-    margin: 10px 0;
+    margin: 5px 0;
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+#preview-content .header p {
+    font-size: 12px;
+    color: #333;
+    margin: 3px 0;
 }
 #preview-content .info-section {
     display: flex;
@@ -160,6 +204,25 @@ button:hover {
 }
 #preview-content .table-section {
     margin-bottom: 30px;
+}
+#preview-content .table-section h3 {
+    font-size: 18px;
+    color: #b88a5a;
+    margin-bottom: 10px;
+}
+#preview-content .table-section p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    word-wrap: break-word;
+    margin: 5px 0;
+}
+#preview-content .checkbox-list {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    word-wrap: break-word;
+    margin-top: 5px;
 }
 #preview-content table {
     width: 100%;
