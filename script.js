@@ -1,23 +1,18 @@
 // Dados estáticos de clientes e fornecedores
 const clientes = [
-    { id: 1, nome: 'Márcia Marlene Marczewski', documento: 'CNPJ', numeroDocumento: '23.296.579.0001-87', pix: '23.296.579.0001-87', chavePix: '', telefone: '(47)99649-5006', endereco: '' },
-    { id: 2, nome: 'Condomínio Edifício Fabimar', documento: 'CNPJ', numeroDocumento: '03.688.491/0001-10', pix: '', chavePix: '', telefone: '', endereco: 'Rua 902, número 178 , Centro, Balneário Camboriú (SC)' },
-    { id: 3, nome: 'Francisca Celia Spanholi', documento: 'CPF', numeroDocumento: '555.419.099-53', pix: '', chavePix: '', telefone: '', endereco: 'Av. Brasil 3551 / edif. Le majestic apto 3203, Balneário Camboriú (SC)' },
-    { id: 4, nome: 'Silvana Mussi', documento: 'CPF', numeroDocumento: '371.640.749-68', pix: '', chavePix: '', telefone: '', endereco: 'Rua 1950, número 40, Centro, Balneário Camboriú (SC)' },
-    { id: 5, nome: 'Cristiano Gonzaga da Silva', documento: 'CPF', numeroDocumento: '910.914.629-68', pix: '', chavePix: '', telefone: '', endereco: 'Rua Morretes, número 236, bairro Ipanema, Pontal do Paraná (PR)' },
-    { id: 6, nome: 'Tatiane Daniela Rodrigues Corrêa', documento: 'CPF', numeroDocumento: '003.441.699-44', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 7, nome: 'Condomínio Alliança', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 8, nome: 'Condomínio Fabimar', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 9, nome: 'Jumar', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 10, nome: 'Gerdelina', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 11, nome: 'Collina di Napoli', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 12, nome: 'Mont Blanc', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 13, nome: 'Rossini', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 14, nome: 'Apollo', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 15, nome: 'Maiara', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 16, nome: 'Roberto Mafra', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 17, nome: 'Roberta Voltolini', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' },
-    { id: 18, nome: 'Le Majestic', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '', endereco: '' }
+    { id: 1, nome: 'Condomínio Edifício Fabimar', documento: 'CNPJ', numeroDocumento: '03.688.491/0001-10', pix: '', chavePix: '', telefone: '(47) 99230-4695', endereco: 'Rua 902, número 178 , Centro, Balneário Camboriú (SC)' },
+    { id: 2, nome: 'Francisca Celia Spanholi', documento: 'CPF', numeroDocumento: '555.419.099-53', pix: '', chavePix: '', telefone: '(71) 99956-8082', endereco: 'Av. Brasil 3551 / edif. Le majestic apto 3203, Balneário Camboriú (SC)', endereco2: 'Rua Praia de Mucuripe Qd.16 lote 4, Bairro: vilas do Atlantico / Lauro de Freitas /BA, CEP 42707800' },
+    { id: 3, nome: 'Silvana Mussi', documento: 'CPF', numeroDocumento: '371.640.749-68', pix: '', chavePix: '', telefone: '(42) 99971-3819', endereco: 'Rua 1950, número 40, Centro, Balneário Camboriú (SC)' },
+    { id: 4, nome: 'Cristiano Gonzaga da Silva', documento: 'CPF', numeroDocumento: '910.914.629-68', pix: '', chavePix: '', telefone: '(41) 99993-5573', endereco: 'Rua Morretes, número 236, bairro Ipanema, Pontal do Paraná (PR)' },
+    { id: 5, nome: 'Tatiane Daniela Rodrigues Corrêa', documento: 'CPF', numeroDocumento: '003.441.699-44', pix: '', chavePix: '', telefone: '(47) 99922-8958', endereco: 'Rua 3130, 112- Centro BC, Ap. 2402 Ed. Peniche' },
+    { id: 6, nome: 'Jumar Batista Terciotti', documento: 'CPF', numeroDocumento: '467.186.309-00', pix: '', chavePix: '', telefone: '(45) 99971-0389', endereco: '3ª Avenida, 1150 - Centro, Balneário Camboriú - SC, Ed. Rosamonte ap.801', endereco2: 'Av. Tancredo Neves 854, Cascavel PR' },
+    { id: 7, nome: 'Gerdelina Juvina Marochi', documento: 'CPF', numeroDocumento: '168.078.209-68', pix: '', chavePix: '', telefone: '(42) 99918-9233', endereco: 'Av. Central, 46 Calçadão Centro BC, Ed. Imperador ap.1609' },
+    { id: 8, nome: 'Roberto Mafra', documento: 'CPF', numeroDocumento: '600.878.389-15', pix: '', chavePix: '', telefone: '(47) 98473-2610', endereco: 'Rua Basílio Pedro da silva 126 Centro Camboriú SC, Ed Villa formosa 903' },
+    { id: 9, nome: 'Roberta Voltolini', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '(47) 98418-3786', endereco: 'Rua Santo Antônio, 269– Bairro São Francisco–Camboriú SC' },
+    { id: 10, nome: 'Juan Carlo Boggino e Adriana de Boggino', documento: 'CPF', numeroDocumento: '011.241.729-98', pix: '', chavePix: '', telefone: '595 981 406096', endereco: 'Av Brasil 2285 - Ed Alliança, Apto 803' },
+    { id: 11, nome: 'Luiz Sussumo Tomimasu', documento: 'CPF', numeroDocumento: '851.732.408-06', pix: '', chavePix: '', telefone: '(47) 99245-2366', endereco: 'Av. Alvin Bauer 119 – ap. 1201 – Centro BC' },
+    { id: 12, nome: 'Máricia Isabel Pereira', documento: 'CPF', numeroDocumento: '545.972.501-15', pix: '', chavePix: '', telefone: '(47) 99918-6946', endereco: 'Rua 3700 nº 194 Centro BC - ED. Rossini cob 01' },
+    { id: 13, nome: 'Célia Wagner', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '(41) 99974-1443', endereco: 'Av. Atlântica 2320 Centro BC, Ed. Apollo 11 ap.923' }
 ];
 
 const fornecedores = [
@@ -733,3 +728,4 @@ function closeModal() {
     document.getElementById('preview-modal').style.display = 'none';
     document.getElementById('preview-content').innerHTML = '';
 }
+
