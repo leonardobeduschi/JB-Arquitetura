@@ -147,6 +147,7 @@ function addItemRow(type) {
         newRow.innerHTML = `
             <input type="text" class="item-num" placeholder="Item (Ex: 1)">
             <input type="text" class="item-desc" placeholder="Descrição">
+            <input type="text" class="item-desc-compl" placeholder="Descrição Complementar (opcional)">
             <input type="number" min="0" class="item-qty" placeholder="Quantidade">
             <input type="text" class="item-link" placeholder="Link (opcional)">
             <input type="text" class="item-medida" placeholder="Medida (opcional)">
@@ -219,12 +220,13 @@ function collectOrcamentoFormData() {
     document.querySelectorAll('#items-container-orcamento .item-row').forEach(row => {
         const num = row.querySelector('.item-num').value;
         const desc = row.querySelector('.item-desc').value;
+        const descCompl = row.querySelector('.item-desc-compl').value;
         const qty = row.querySelector('.item-qty').value;
         const link = row.querySelector('.item-link').value;
         const medida = row.querySelector('.item-medida').value;
         const imagem = row.querySelector('.item-imagem').value;
         if (num && desc) {
-            items.push({ num, desc, qty, link, medida, imagem });
+            items.push({ num, desc, descCompl, qty, link, medida, imagem });
         }
     });
 
@@ -269,16 +271,19 @@ function generateDocumentHTML(data) {
         ]);
     } else {
         headers = ['Item', 'Descrição'];
+        const hasDescCompl = data.items.some(item => item.descCompl);
         const hasQty = data.items.some(item => item.qty);
         const hasLink = data.items.some(item => item.link);
         const hasMedida = data.items.some(item => item.medida);
         const hasImagem = data.items.some(item => item.imagem);
+        if (hasDescCompl) headers.splice(2, 0, 'Descrição Complementar');
         if (hasQty) headers.push('Quantidade');
         if (hasLink) headers.push('Link');
         if (hasMedida) headers.push('Medida');
         if (hasImagem) headers.push('Imagem');
         tableData = data.items.map(item => {
             const row = [item.num, item.desc];
+            if (hasDescCompl) row.push(item.descCompl || '');
             if (hasQty) row.push(item.qty || '');
             if (hasLink) row.push(item.link ? `<a href="${item.link}" target="_blank">Link</a>` : '');
             if (hasMedida) row.push(item.medida || '');
