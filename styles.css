@@ -1,4 +1,4 @@
-/* Estilos para o formulário */
+/* Estilos para o formulário - Versão modificada para itens em 2 linhas */
 body {
     font-family: 'Century Gothic', Arial, sans-serif;
     margin: 0;
@@ -11,7 +11,7 @@ body {
 }
 .container {
     background-color: #fff;
-    width: 600px;
+    width: 650px; /* Aumentei um pouco a largura para acomodar melhor */
     padding: 30px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -42,6 +42,7 @@ input, textarea, select {
     border-radius: 5px;
     font-family: 'Century Gothic', Arial, sans-serif;
     font-size: 14px;
+    box-sizing: border-box;
 }
 .checkbox-group {
     display: flex;
@@ -75,31 +76,51 @@ textarea[title]:not([title=""]) {
 }
 .item-row {
     display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem para linha seguinte */
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     align-items: center;
-    min-height: 40px; /* Ensure row has enough height */
-    width: 100%; /* Ensure row spans container */
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+.item-row-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 .item-row input {
     flex: 1;
-    min-width: 0;
-    visibility: visible; /* Ensure inputs are not hidden */
-    box-sizing: border-box; /* Prevent overflow */
+    min-width: 120px; /* Largura mínima para cada campo */
+    box-sizing: border-box;
 }
-
-.item-row input.item-nomes {
-    flex: 2;
-    min-width: 150px; /* Ensure Nomes has sufficient width */
+.item-row input.item-num {
+    flex: 0 0 60px; /* Largura fixa para o campo Item */
+}
+.item-row input.item-desc {
+    flex: 3; /* Mais espaço para descrição */
+}
+.item-row input.item-desc-compl {
+    flex: 3; /* Mesmo espaço que a descrição principal */
+}
+.item-row input.item-qty {
+    flex: 0 0 80px; /* Largura fixa para quantidade */
+}
+.item-row input.item-link,
+.item-row input.item-medida,
+.item-row input.item-imagem {
+    flex: 2; /* Espaço médio para estes campos */
 }
 .item-row button {
     background-color: #e74c3c;
     color: #fff;
     border: none;
     padding: 8px 12px;
-    flex: 0 0 auto;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: auto; /* Alinha o botão à direita */
+    flex: 0 0 auto;
 }
 .item-row button:hover {
     background-color: #c0392b;
@@ -117,6 +138,17 @@ button {
 }
 button:hover {
     background-color: #b88a5a;
+}
+
+/* Adicionando media queries para responsividade */
+@media (max-width: 700px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+    .item-row input {
+        min-width: 100px;
+    }
 }
 
 /* Estilos para o modal de pré-visualização */
