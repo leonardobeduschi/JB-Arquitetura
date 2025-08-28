@@ -12,7 +12,8 @@ const clientes = [
     { id: 10, nome: 'Juan Carlo Boggino e Adriana de Boggino', documento: 'CPF', numeroDocumento: '011.241.729-98', pix: '', chavePix: '', telefone: '595 981 406096', endereco: 'Av Brasil 2285 - Ed Alliança, Apto 803' },
     { id: 11, nome: 'Luiz Sussumo Tomimasu', documento: 'CPF', numeroDocumento: '851.732.408-06', pix: '', chavePix: '', telefone: '(47) 99245-2366', endereco: 'Av. Alvin Bauer 119 – ap. 1201 – Centro BC' },
     { id: 12, nome: 'Máricia Isabel Pereira', documento: 'CPF', numeroDocumento: '545.972.501-15', pix: '', chavePix: '', telefone: '(47) 99918-6946', endereco: 'Rua 3700 nº 194 Centro BC - ED. Rossini cob 01' },
-    { id: 13, nome: 'Célia Wagner', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '(41) 99974-1443', endereco: 'Av. Atlântica 2320 Centro BC, Ed. Apollo 11 ap.923' }
+    { id: 13, nome: 'Célia Wagner', documento: '', numeroDocumento: '', pix: '', chavePix: '', telefone: '(41) 99974-1443', endereco: 'Av. Atlântica 2320 Centro BC, Ed. Apollo 11 ap.923' },
+    { id: 14, nome: 'Jacira Pinheiro Seger', documento: 'CPF', numeroDocumento: '787.787.949-00', pix: '', chavePix: '', telefone: '(47) 99912-7305', endereco: 'Av. Atlântica, 4380 apartamento 902' }
 ];
 
 const fornecedores = [
@@ -733,4 +734,5 @@ function closeModal() {
     document.getElementById('preview-modal').style.display = 'none';
     document.getElementById('preview-content').innerHTML = '';
 }
+
 
