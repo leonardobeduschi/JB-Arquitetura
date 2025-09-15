@@ -41,7 +41,8 @@ const fornecedores = [
     { id: 22, empresa: 'I cut laser', tipoPagamento: 'CNPJ', pix: '32.493.346/0001-65', nomePix: 'Marilene Coelho' },
     { id: 23, empresa: 'Casas da Água', tipoPagamento: 'CNPJ', pix: '13.501.187/0001-59', nomePix: 'Casas da Água Materiais para Construção LTDA' },
     { id: 24, empresa: "Viecelli's Reformas", tipoPagamento: 'CNPJ', pix: '33.385.588/0001-06', nomePix: 'REVESTCOR COMÉRCIO LTDA' },
-    { id: 25, empresa: 'Volare Acabamentos', tipoPagamento: '', pix: '', nomePix: '' }
+    { id: 25, empresa: 'Volare Acabamentos', tipoPagamento: '', pix: '', nomePix: '' },
+    { id: 26, empresa: 'Instalação de eletrodomésticos Essencial', tipoPagamento: 'CNPJ', pix: '40.777.363/0001-52', nomePix: 'EMERSON VELASQUE' }
 ];
 
 // Inicializa os dropdowns ao carregar a página
@@ -734,5 +735,6 @@ function closeModal() {
     document.getElementById('preview-modal').style.display = 'none';
     document.getElementById('preview-content').innerHTML = '';
 }
+
 
 
