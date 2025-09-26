@@ -44,7 +44,8 @@ const fornecedores = [
     { id: 24, empresa: "Viecelli's Reformas", tipoPagamento: 'CNPJ', pix: '33.385.588/0001-06', nomePix: 'REVESTCOR COMÉRCIO LTDA' },
     { id: 25, empresa: 'Volare Acabamentos', tipoPagamento: '', pix: '', nomePix: '' },
     { id: 26, empresa: 'Essencial', tipoPagamento: 'CNPJ', pix: '40.777.363/0001-52', nomePix: 'EMERSON VELASQUE' },
-    { id: 27, empresa: 'BV Clean', tipoPagamento: 'Celular', pix: '47 992520402', nomePix: 'Nadia Bittencourt' }
+    { id: 27, empresa: 'BV Clean', tipoPagamento: 'Celular', pix: '47 992520402', nomePix: 'Nadia Bittencourt' },
+    { id: 28, empresa: 'Boutique dos Varais', tipoPagamento: 'Celular', pix: '(47) 999960617', nomePix: 'ALTAIR VIEIRA BORGES' }
 ];
 
 // Inicializa os dropdowns ao carregar a página
@@ -737,6 +738,7 @@ function closeModal() {
     document.getElementById('preview-modal').style.display = 'none';
     document.getElementById('preview-content').innerHTML = '';
 }
+
 
 
 
