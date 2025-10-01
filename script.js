@@ -264,8 +264,8 @@ function generateDocumentHTML(data) {
             item.num,
             item.desc,
             item.qty,
-            `R$ ${parseFloat(item.unitPrice).toFixed(2).replace('.', ',')}`,
-            `R$ ${item.total.replace('.', ',')}`
+            formatarMoeda(item.unitPrice),
+            formatarMoeda(item.total)
         ]);
     } else if (isDiario) {
         headers = ['Descrição', 'Quantidade', 'Nomes'];
@@ -329,7 +329,7 @@ function generateDocumentHTML(data) {
                     <h4>Fornecedor</h4>
                     <div>${data.fornecedor.replace(/\n/g, '<br>')}</div>
                     ${isOrdem && data.fornecedorDetalhes ? `<div>Detalhes Adicionais: ${data.fornecedorDetalhes.replace(/\n/g, '<br>')}</div>` : ''}
-                    ${isOrdem ? `<div class="total">Subtotal: R$ ${grandTotal.replace('.', ',')}</div>` : ''}
+                    ${isOrdem ? `<div class="total">Subtotal: ${formatarMoeda(grandTotal)}</div>` : ''}
                 </div>
             </div>
         `;
@@ -572,13 +572,20 @@ function generateDocumentHTML(data) {
                 ${tablesHTML}
                 ${isOrdem ? `
                     <div class="total">
-                        Valor Total Geral: R$ ${grandTotal.replace('.', ',')}
+                        Valor Total Geral: ${formatarMoeda(grandTotal)}
                     </div>
                 ` : ''}
             </div>
         </body>
         </html>
     `;
+}
+
+function formatarMoeda(valor) {
+    return 'R$ ' + Number(valor).toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 }
 
 // Gera e salva HTML
@@ -738,10 +745,4 @@ function closeModal() {
     document.getElementById('preview-modal').style.display = 'none';
     document.getElementById('preview-content').innerHTML = '';
 }
-
-
-
-
-
-
 
