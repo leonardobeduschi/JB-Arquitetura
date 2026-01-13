@@ -10,7 +10,7 @@ const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 dias em millisegundos
 
 // SENHA ATUAL (ALTERE AQUI PARA MUDAR A SENHA)
 // Para gerar um novo hash, execute no console: hashPassword("sua_nova_senha")
-const CURRENT_PASSWORD_HASH = 'TkRJd01sOW9ZM0poWDJKcU16SXhZV2h1WlhNPWpiX2FyY2hfMjAyNA=='; // Senha padrão: "senha123"
+const CURRENT_PASSWORD_HASH = 'TkRJd01sOW9ZM0poWDJKcUl6VTJPVEVqY1hKaExXSnFqYl9hcmNoXzIwMjQ='; 
 
 /**
  * Função para criar hash da senha
