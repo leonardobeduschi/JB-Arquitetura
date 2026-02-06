@@ -346,10 +346,11 @@ function generateDocumentHTML(data) {
         });
 
         if (data.fornecedor) {
+            const fornecedorDisplay = isOrcamento ? data.fornecedor.split('\n')[0] : data.fornecedor.replace(/\n/g, '<br>');
             tablesHTML += `
                 <div class="fornecedor-box">
-                    <h4>Fornecedor</h4>
-                    <p>${data.fornecedor.replace(/\n/g, '<br>')}</p>
+                    <h4>${isOrcamento ? 'Fornecedor' : 'Informações do Fornecedor'}</h4>
+                    <p>${fornecedorDisplay}</p>
                 </div>
             `;
         }
@@ -1160,7 +1161,8 @@ async function generateAndSavePDF(type) {
                 pdf.setFontSize(9);
                 pdf.setFont('helvetica', 'normal');
                 pdf.setTextColor(...darkColor);
-                const fornecedorLines = pdf.splitTextToSize(data.fornecedor, pageWidth - 2 * margin - 10);
+                const fornecedorText = isOrcamento ? data.fornecedor.split('\n')[0] : data.fornecedor;
+                const fornecedorLines = pdf.splitTextToSize(fornecedorText, pageWidth - 2 * margin - 10);
                 pdf.text(fornecedorLines, margin + 5, yPos);
             }
         } else if (isDiario) {
