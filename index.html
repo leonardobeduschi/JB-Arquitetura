@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Documentos - Empresa de Arquitetura</title>
     <link rel="stylesheet" href="styles.css">
-    
+
+    <!-- Biblioteca para geração de PDF com texto selecionável -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
     <div class="container">
         <h1>Gerador de Documentos</h1>
@@ -29,7 +33,8 @@
                     <select id="cliente-ordem" onchange="updateClienteInfo('ordem')">
                         <option value="">Selecione um cliente</option>
                     </select>
-                    <input type="text" id="cliente-manual-ordem" placeholder="Digite o nome do cliente" style="display: none; margin-top: 10px;">
+                    <input type="text" id="cliente-manual-ordem" placeholder="Digite o nome do cliente"
+                        style="display: none; margin-top: 10px;">
                     <label>Nome do Arquivo (opcional)</label>
                     <input type="text" id="nome-arquivo" placeholder="Ex: Ordem_Compra_001">
                     <label>Número do Pedido</label>
@@ -48,7 +53,8 @@
                                 <input type="text" class="item-num" placeholder="Item (Ex: 1)">
                                 <input type="text" class="item-desc" placeholder="Descrição">
                                 <input type="number" min="0" class="item-qty" placeholder="Quantidade">
-                                <input type="number" step="0.01" min="0" class="item-unit-price" placeholder="Valor Unitário">
+                                <input type="number" step="0.01" min="0" class="item-unit-price"
+                                    placeholder="Valor Unitário">
                             </div>
                         </div>
                         <button type="button" onclick="addItemRow('ordem')">Adicionar Item</button>
@@ -58,13 +64,17 @@
                     <select id="fornecedor-select-ordem" onchange="updateFornecedorInfo('ordem')">
                         <option value="">Selecione um fornecedor</option>
                     </select>
-                    <textarea id="fornecedor-manual-ordem" placeholder="Digite os dados do fornecedor manualmente" rows="4" style="display: none; margin-top: 10px;"></textarea>
+                    <textarea id="fornecedor-manual-ordem" placeholder="Digite os dados do fornecedor manualmente"
+                        rows="4" style="display: none; margin-top: 10px;"></textarea>
                     <label>Detalhes Adicionais do Fornecedor (opcional)</label>
-                    <textarea id="fornecedor-detalhes-ordem" placeholder="Ex: Endereço, contato, observações" rows="3" style="margin-top: 10px;"></textarea>
+                    <textarea id="fornecedor-detalhes-ordem" placeholder="Ex: Endereço, contato, observações" rows="3"
+                        style="margin-top: 10px;"></textarea>
 
-                    <div style="margin-top: 20px;">
-                        <button type="button" onclick="previewDocument('ordem')">Pré-visualizar Documento</button>
-                        <button type="button" onclick="generateAndSaveHTML('ordem')">Gerar e Salvar HTML</button>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" onclick="previewDocument('ordem')">Pré-visualizar</button>
+                        <button type="button" onclick="generateAndSaveHTML('ordem')">Gerar HTML</button>
+                        <button type="button" onclick="generateAndSavePDF('ordem')"
+                            style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">📄 Gerar PDF</button>
                     </div>
                 </div>
 
@@ -75,7 +85,8 @@
                     <select id="cliente-orcamento" onchange="updateClienteInfo('orcamento')">
                         <option value="">Selecione um cliente (opcional)</option>
                     </select>
-                    <input type="text" id="cliente-manual-orcamento" placeholder="Digite o nome do cliente" style="display: none; margin-top: 10px;">
+                    <input type="text" id="cliente-manual-orcamento" placeholder="Digite o nome do cliente"
+                        style="display: none; margin-top: 10px;">
                     <label>Nome do Arquivo (opcional)</label>
                     <input type="text" id="nome-arquivo-orcamento" placeholder="Ex: Solicitacao_Orcamento_001">
                     <label>Data</label>
@@ -85,7 +96,8 @@
                     <select id="fornecedor-select-orcamento" onchange="updateFornecedorInfo('orcamento')">
                         <option value="">Selecione um fornecedor</option>
                     </select>
-                    <textarea id="fornecedor-manual-orcamento" placeholder="Digite o nome do fornecedor manualmente" rows="4" style="display: none; margin-top: 10px;"></textarea>
+                    <textarea id="fornecedor-manual-orcamento" placeholder="Digite o nome do fornecedor manualmente"
+                        rows="4" style="display: none; margin-top: 10px;"></textarea>
 
                     <div class="items-section">
                         <h3>Itens</h3>
@@ -93,19 +105,26 @@
                             <div class="item-row">
                                 <input type="text" class="item-num" placeholder="Item (Ex: 1)">
                                 <input type="text" class="item-desc" placeholder="Descrição">
-                                <input type="text" class="item-desc-compl" placeholder="Descrição Complementar (opcional)">
+                                <input type="text" class="item-desc-compl"
+                                    placeholder="Descrição Complementar (opcional)">
                                 <input type="number" min="0" class="item-qty" placeholder="Quantidade">
                                 <input type="text" class="item-link" placeholder="Link (opcional)">
                                 <input type="text" class="item-medida" placeholder="Medida (opcional)">
-                                <input type="text" class="item-imagem" placeholder="URL da Imagem (opcional)">
+                                <label style="display:inline-block; width:auto; margin:0;">URL Imagem:</label>
+                                <input type="text" class="item-imagem" placeholder="https://exemplo.com/imagem.jpg">
+                                <label style="display:inline-block; width:auto; margin:0; margin-top:5px;">Ou selecione
+                                    arquivo:</label>
+                                <input type="file" class="item-imagem-file" accept="image/*" style="margin-top:5px;">
                             </div>
                         </div>
                         <button type="button" onclick="addItemRow('orcamento')">Adicionar Item</button>
                     </div>
 
-                    <div style="margin-top: 20px;">
-                        <button type="button" onclick="previewDocument('orcamento')">Pré-visualizar Documento</button>
-                        <button type="button" onclick="generateAndSaveHTML('orcamento')">Gerar e Salvar HTML</button>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" onclick="previewDocument('orcamento')">Pré-visualizar</button>
+                        <button type="button" onclick="generateAndSaveHTML('orcamento')">Gerar HTML</button>
+                        <button type="button" onclick="generateAndSavePDF('orcamento')"
+                            style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">📄 Gerar PDF</button>
                     </div>
                 </div>
 
@@ -158,9 +177,12 @@
                     <div class="items-section">
                         <h3>Serviços Executados</h3>
                         <label>Obra</label>
-                        <textarea id="servicos-obra" placeholder="Descrição dos serviços executados (mínimo 50 caracteres)" rows="4" oninput="validateMinLength(this, 50)"></textarea>
+                        <textarea id="servicos-obra"
+                            placeholder="Descrição dos serviços executados (mínimo 50 caracteres)" rows="4"
+                            oninput="validateMinLength(this, 50)"></textarea>
                         <label>Administrativo</label>
-                        <textarea id="servicos-administrativo" placeholder="Detalhes administrativos" rows="4"></textarea>
+                        <textarea id="servicos-administrativo" placeholder="Detalhes administrativos"
+                            rows="4"></textarea>
                     </div>
 
                     <div class="items-section">
@@ -168,12 +190,15 @@
                         <label>Anotações</label>
                         <textarea id="observacoes-anotacoes" placeholder="Anotações gerais" rows="4"></textarea>
                         <label>Solicitação de Produtos</label>
-                        <textarea id="observacoes-produtos" placeholder="Produtos necessários para a obra" rows="4"></textarea>
+                        <textarea id="observacoes-produtos" placeholder="Produtos necessários para a obra"
+                            rows="4"></textarea>
                     </div>
 
-                    <div style="margin-top: 20px;">
-                        <button type="button" onclick="previewDocument('diario')">Pré-visualizar Documento</button>
-                        <button type="button" onclick="generateAndSaveHTML('diario')">Gerar e Salvar HTML</button>
+                    <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" onclick="previewDocument('diario')">Pré-visualizar</button>
+                        <button type="button" onclick="generateAndSaveHTML('diario')">Gerar HTML</button>
+                        <button type="button" onclick="generateAndSavePDF('diario')"
+                            style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);">📄 Gerar PDF</button>
                     </div>
                 </div>
             </form>
@@ -196,4 +221,5 @@
     <script src="script.js"></script>
     <script src="version.js"></script>
 </body>
+
 </html>

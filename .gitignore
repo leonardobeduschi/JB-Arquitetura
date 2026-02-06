@@ -1,1 +1,10 @@
-config.js
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Local testing
+*.html.bak
