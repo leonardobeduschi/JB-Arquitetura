@@ -591,6 +591,16 @@ function generateDocumentHTML(data) {
                     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
                 }
                 
+                .item-table a {
+                    word-break: break-all;
+                    color: #d4a373;
+                    text-decoration: none;
+                }
+                
+                .item-table a:hover {
+                    text-decoration: underline;
+                }
+                
                 .table-header {
                     display: flex;
                     justify-content: space-between;
@@ -919,12 +929,13 @@ async function generateAndSavePDF(type) {
             rightY = addInfoSection('Horário de Trabalho', data.horarioTrabalho, rightX, rightY);
             if (data.tempo) rightY = addInfoSection('Tempo', data.tempo.join(', '), rightX, rightY);
             if (data.turno) rightY = addInfoSection('Turno', data.turno.join(', '), rightX, rightY);
-        } else if (isOrdem) {
+        } else if (isOrdem || isOrcamento) {
             if (clienteNome) leftY = addInfoSection('Cliente', clienteNome, leftX, leftY);
-            leftY = addInfoSection('Número do Pedido', data.numeroPedido, leftX, leftY);
-
-            rightY = addInfoSection('Obra', data.obra, rightX, rightY);
-            rightY = addInfoSection('Referência', data.ref, rightX, rightY);
+            if (isOrdem) {
+                leftY = addInfoSection('Número do Pedido', data.numeroPedido, leftX, leftY);
+                rightY = addInfoSection('Obra', data.obra, rightX, rightY);
+                rightY = addInfoSection('Referência', data.ref, rightX, rightY);
+            }
         }
 
         yPos = Math.max(leftY, rightY) + 5;
@@ -1110,10 +1121,15 @@ async function generateAndSavePDF(type) {
                     pdf.setFont('helvetica', 'bold');
                     pdf.setTextColor(...grayColor);
                     pdf.text(`Link: `, contentStartX, currentItemY);
+
                     pdf.setFont('helvetica', 'normal');
                     pdf.setTextColor(212, 163, 115);
-                    pdf.textWithLink(item.link, contentStartX + 10, currentItemY, { url: item.link });
-                    currentItemY += 5;
+
+                    const linkLines = pdf.splitTextToSize(item.link, textWidthLimit - 10);
+                    linkLines.forEach((line, i) => {
+                        pdf.textWithLink(line, contentStartX + 10, currentItemY + (i * 4), { url: item.link });
+                    });
+                    currentItemY += linkLines.length * 4 + 1;
                 }
 
                 // Imagem (Lado Direito)
