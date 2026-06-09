@@ -869,6 +869,8 @@ async function generateAndSavePDF(type) {
 
         await addLogo();
 
+        yPos += 5;
+
         // Título
         pdf.setFontSize(20);
         pdf.setFont('helvetica', 'bold');
