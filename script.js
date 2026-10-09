@@ -105,12 +105,14 @@ function updateFornecedorInfo(prefix) {
             let infoTexto = fornecedor.empresa;
             if (fornecedor.pix) {
                 infoTexto += `\nPIX: ${fornecedor.pix}`;
-                if (fornecedor.tipoPagamento) {
-                    infoTexto += ` (${fornecedor.tipoPagamento})`;
+                const tipoPagamento = fornecedor.tipoPagamento || fornecedor.tipo_pagamento;
+                if (tipoPagamento) {
+                    infoTexto += ` (${tipoPagamento})`;
                 }
             }
-            if (fornecedor.nomePix) {
-                infoTexto += `\nNome PIX: ${fornecedor.nomePix}`;
+            const nomePix = fornecedor.nomePix || fornecedor.nome_pix;
+            if (nomePix) {
+                infoTexto += `\nNome PIX: ${nomePix}`;
             }
             fornecedorManual.value = infoTexto;
         } else {
@@ -834,18 +836,45 @@ async function generateAndSavePDF(type) {
         const darkColor = [44, 44, 44]; // #2c2c2c
         const grayColor = [85, 85, 85]; // #555
 
+        // A logo é lida como arquivo antes de ser convertida em data URL. Isso evita
+        // que uma política de CORS do navegador bloqueie a conversão pelo canvas.
+        const loadLogoAsBase64 = async () => {
+            const logoUrl = new URL('logo.png', window.location.href).href;
+            const response = await fetch(logoUrl, { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error(`Logo não encontrada (${response.status})`);
+            }
+
+            const logoBlob = await response.blob();
+            const logoData = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(reader.error);
+                reader.readAsDataURL(logoBlob);
+            });
+
+            return new Promise((resolve, reject) => {
+                const image = new Image();
+                image.onload = () => resolve({ data: logoData, width: image.naturalWidth, height: image.naturalHeight });
+                image.onerror = () => reject(new Error('Não foi possível ler a imagem da logo.'));
+                image.src = logoData;
+            });
+        };
+
         // Função para adicionar logo
         const addLogo = async () => {
             try {
-                const logoUrl = 'logo.png';
-                const imgData = await loadImageAsBase64(logoUrl);
-                const logoWidth = 30;
-                const logoHeight = 30;
+                const { data: imgData, width: imageWidth, height: imageHeight } = await loadLogoAsBase64();
+                const maxLogoWidth = 48;
+                const maxLogoHeight = 32;
+                const scale = Math.min(maxLogoWidth / imageWidth, maxLogoHeight / imageHeight);
+                const logoWidth = imageWidth * scale;
+                const logoHeight = imageHeight * scale;
                 const logoX = (pageWidth - logoWidth) / 2;
                 pdf.addImage(imgData, 'PNG', logoX, yPos, logoWidth, logoHeight);
                 yPos += logoHeight + 5;
             } catch (error) {
-                console.log('Logo não encontrada, continuando sem logo');
+                console.warn('Não foi possível carregar a logo para o PDF:', error);
             }
         };
 
@@ -853,17 +882,21 @@ async function generateAndSavePDF(type) {
         const loadImageAsBase64 = (url) => {
             return new Promise((resolve, reject) => {
                 const img = new Image();
-                img.crossOrigin = 'Anonymous';
+                img.crossOrigin = 'anonymous';
                 img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    resolve(canvas.toDataURL('image/png'));
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        resolve({ data: canvas.toDataURL('image/png'), width: img.width, height: img.height });
+                    } catch (error) {
+                        reject(error);
+                    }
                 };
                 img.onerror = reject;
-                img.src = url;
+                img.src = new URL(url, window.location.href).href;
             });
         };
 
@@ -986,19 +1019,36 @@ async function generateAndSavePDF(type) {
             let grandTotal = 0;
 
             data.items.forEach((item, index) => {
-                checkPageBreak(10);
+                const descLines = pdf.splitTextToSize(item.desc, colWidths[1] - 4);
+                const lineHeight = 4.5;
+                const rowHeight = Math.max(8, descLines.length * lineHeight + 4);
+
+                if (checkPageBreak(rowHeight)) {
+                    // Mantém os títulos das colunas quando a tabela continua em outra página.
+                    pdf.setFillColor(...primaryColor);
+                    pdf.rect(margin, yPos - 5, pageWidth - 2 * margin, 8, 'F');
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(255, 255, 255);
+                    xPos = margin + 2;
+                    headers.forEach((header, i) => {
+                        pdf.text(header, xPos, yPos);
+                        xPos += colWidths[i];
+                    });
+                    yPos += 8;
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setTextColor(...darkColor);
+                }
 
                 if (index % 2 === 0) {
                     pdf.setFillColor(249, 249, 249);
-                    pdf.rect(margin, yPos - 5, pageWidth - 2 * margin, 8, 'F');
+                    pdf.rect(margin, yPos - 5, pageWidth - 2 * margin, rowHeight, 'F');
                 }
 
                 xPos = margin + 2;
                 pdf.text(item.num, xPos, yPos);
                 xPos += colWidths[0];
 
-                const descLines = pdf.splitTextToSize(item.desc, colWidths[1] - 4);
-                pdf.text(descLines[0], xPos, yPos);
+                pdf.text(descLines, xPos, yPos);
                 xPos += colWidths[1];
 
                 pdf.text(item.qty, xPos, yPos);
@@ -1010,7 +1060,7 @@ async function generateAndSavePDF(type) {
                 pdf.text(formatarMoeda(item.total), xPos, yPos);
 
                 grandTotal += parseFloat(item.total);
-                yPos += 8;
+                yPos += rowHeight;
             });
 
             // Total
@@ -1025,9 +1075,14 @@ async function generateAndSavePDF(type) {
 
             // Fornecedor
             if (data.fornecedor) {
-                checkPageBreak(30);
+                pdf.setFontSize(9);
+                const fornecedorLines = pdf.splitTextToSize(data.fornecedor, pageWidth - 2 * margin - 10);
+                const detalhesLines = data.fornecedorDetalhes ?
+                    pdf.splitTextToSize(data.fornecedorDetalhes, pageWidth - 2 * margin - 10) : [];
+                const boxHeight = 16 + fornecedorLines.length * 4.5 +
+                    (detalhesLines.length ? detalhesLines.length * 4.5 + 3 : 0) + 4;
+                checkPageBreak(boxHeight);
                 pdf.setFillColor(250, 245, 240);
-                const boxHeight = 25;
                 pdf.rect(margin, yPos, pageWidth - 2 * margin, boxHeight, 'F');
 
                 pdf.setDrawColor(...primaryColor);
@@ -1044,14 +1099,13 @@ async function generateAndSavePDF(type) {
                 pdf.setFontSize(9);
                 pdf.setFont('helvetica', 'normal');
                 pdf.setTextColor(...darkColor);
-                const fornecedorLines = pdf.splitTextToSize(data.fornecedor, pageWidth - 2 * margin - 10);
                 pdf.text(fornecedorLines, margin + 5, yPos);
 
-                if (data.fornecedorDetalhes) {
-                    yPos += fornecedorLines.length * 4 + 3;
-                    const detalhesLines = pdf.splitTextToSize(data.fornecedorDetalhes, pageWidth - 2 * margin - 10);
+                if (detalhesLines.length) {
+                    yPos += fornecedorLines.length * 4.5 + 3;
                     pdf.text(detalhesLines, margin + 5, yPos);
                 }
+                yPos += (detalhesLines.length ? detalhesLines.length * 4.5 : fornecedorLines.length * 4.5) + 7;
             }
         } else if (isOrcamento && data.items.length > 0) {
             for (const item of data.items) {
@@ -1137,7 +1191,7 @@ async function generateAndSavePDF(type) {
                 // Imagem (Lado Direito)
                 if (item.imagem) {
                     try {
-                        const imgData = item.imagem.startsWith('data:') ? item.imagem : await loadImageAsBase64(item.imagem);
+                        const imgData = item.imagem.startsWith('data:') ? item.imagem : (await loadImageAsBase64(item.imagem)).data;
                         const imgX = pageWidth - margin - imageWidth - 3;
                         pdf.addImage(imgData, 'PNG', imgX, yPos, imageWidth, imageHeight);
 
@@ -1160,9 +1214,11 @@ async function generateAndSavePDF(type) {
 
             // Fornecedor
             if (data.fornecedor) {
-                checkPageBreak(20);
+                pdf.setFontSize(9);
+                const fornecedorLines = pdf.splitTextToSize(data.fornecedor, pageWidth - 2 * margin - 10);
+                const boxHeight = 16 + fornecedorLines.length * 4.5 + 4;
+                checkPageBreak(boxHeight);
                 pdf.setFillColor(250, 245, 240);
-                const boxHeight = 20;
                 pdf.rect(margin, yPos, pageWidth - 2 * margin, boxHeight, 'F');
 
                 pdf.setDrawColor(...primaryColor);
@@ -1179,9 +1235,8 @@ async function generateAndSavePDF(type) {
                 pdf.setFontSize(9);
                 pdf.setFont('helvetica', 'normal');
                 pdf.setTextColor(...darkColor);
-                const fornecedorText = isOrcamento ? data.fornecedor.split('\n')[0] : data.fornecedor;
-                const fornecedorLines = pdf.splitTextToSize(fornecedorText, pageWidth - 2 * margin - 10);
                 pdf.text(fornecedorLines, margin + 5, yPos);
+                yPos += fornecedorLines.length * 4.5 + 7;
             }
         } else if (isDiario) {
             // Tabela de Pessoal
@@ -1215,25 +1270,26 @@ async function generateAndSavePDF(type) {
                 pdf.setTextColor(...darkColor);
 
                 data.pessoal.forEach((p, index) => {
-                    checkPageBreak(10);
+                    const descLines = pdf.splitTextToSize(p.desc, colWidths[0] - 4);
+                    const nomesLines = pdf.splitTextToSize(p.nomes, colWidths[2] - 4);
+                    const rowHeight = Math.max(8, Math.max(descLines.length, nomesLines.length) * 4.5 + 4);
+                    checkPageBreak(rowHeight);
 
                     if (index % 2 === 0) {
                         pdf.setFillColor(249, 249, 249);
-                        pdf.rect(margin, yPos - 5, pageWidth - 2 * margin, 8, 'F');
+                        pdf.rect(margin, yPos - 5, pageWidth - 2 * margin, rowHeight, 'F');
                     }
 
                     xPos = margin + 2;
-                    const descLines = pdf.splitTextToSize(p.desc, colWidths[0] - 4);
-                    pdf.text(descLines[0], xPos, yPos);
+                    pdf.text(descLines, xPos, yPos);
                     xPos += colWidths[0];
 
                     pdf.text(p.qty, xPos, yPos);
                     xPos += colWidths[1];
 
-                    const nomesLines = pdf.splitTextToSize(p.nomes, colWidths[2] - 4);
-                    pdf.text(nomesLines[0], xPos, yPos);
+                    pdf.text(nomesLines, xPos, yPos);
 
-                    yPos += 8;
+                    yPos += rowHeight;
                 });
                 yPos += 5;
             }
